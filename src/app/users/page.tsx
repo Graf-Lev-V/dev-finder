@@ -43,10 +43,13 @@ export default function Users() {
     }, [query])
 
     return (
-        <div>
+        <div className="p-6">
             {loading && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
-            {users.map((user) => <Link key={user.id} href={`/users/${user.login}`} className="w-max"><UserCard login={user.login} avatar={user.avatar_url}/></Link>)}
+            <h2 className="text-lg font-bold mb-4">Results for: &quot;{query}&quot;</h2>
+            <div className="grid grid-cols-3 gap-4">
+                {users.map((user) => <UserCard key={user.id} login={user.login} avatar={user.avatar_url}/>)}
+            </div>
         </div>
     )
 }
