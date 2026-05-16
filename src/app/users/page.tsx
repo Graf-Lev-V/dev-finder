@@ -1,6 +1,8 @@
 'use client'
 
 import { useSearchParams } from "next/navigation";
+export const dynamic = 'force-dynamic';
+
 import { User } from '../types';
 import { useEffect, useState } from "react";
 import UserCard from "../components/UserCard";
