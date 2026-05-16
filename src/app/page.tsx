@@ -19,7 +19,8 @@ export default function Home() {
           onChange={(e) => setSearch(e.target.value)}
         />
         <button 
-          className="bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-800 hover:cursor-pointer" 
+          className="bg-blue-600 text-white py-3 px-6 rounded-md 
+          hover:bg-blue-800 hover:cursor-pointer focus:outline-offset-2 focus:outline-2 outline-black" 
           onClick={() => router.push(`/users/?q=${search}`)}
         >Search</button>
       </div>

@@ -3,6 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from 'next/image';
+import RepoList from "@/app/components/RepoList";
 
 type User = {
     avatar_url: string;
@@ -16,7 +17,7 @@ type User = {
 
 export default function User() {
 
-    const { login } = useParams();
+    const { login } = useParams<{login: string}>();
 
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
@@ -53,6 +54,7 @@ export default function User() {
     const router = useRouter();
 
     return (
+        <>
         <div className="max-w-md mx-auto p-8 bg-gray-100 rounded-xl shadow-md mt-8">
             {loading && <p className="text-center">Loading...</p>}
             {error && <p className="text-center">{error.message}</p>}
@@ -84,5 +86,7 @@ export default function User() {
                 >Back</button>
             </div>
         </div>
+        <RepoList login={login}/>
+        </>
     )
 }
