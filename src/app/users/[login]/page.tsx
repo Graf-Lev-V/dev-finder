@@ -60,7 +60,7 @@ export default function User() {
                 <p className="text-lg font-bold text-center mt-2">{user?.login}</p>
                 <p className="text-gray-700 text-center mb-4 mt-1">{user?.bio}</p>
                 <UserStats className={{
-                    container: "flex gap-4 justify-center text-gray-700",
+                    container: "flex md:gap-4 gap-2 justify-center text-gray-700 md:flex-row flex-col items-center",
                     followers: "font-bold text-black",
                     following: "font-bold text-black",
                     repositiries: "font-bold text-black"

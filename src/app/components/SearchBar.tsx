@@ -17,7 +17,7 @@ export default function SearchBar({search, setSearch, className}: SearchBarProps
     const router = useRouter();
 
     return (
-        <div className={className.container}>
+      <div className={className.container}>
         <input
           className={className.input}
           value={search}

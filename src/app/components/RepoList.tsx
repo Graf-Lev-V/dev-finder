@@ -45,12 +45,12 @@ export default function RepoList({login}: {login: string}) {
     return (
         <div className='p-6'>
             <h3 className='text-bold text-xl my-4'>Repositories</h3>
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                 {loading && <Loader/>}
                 {error && <p>{error.message}</p>}
                 {repos.map((repo) => 
                 <div key={repo.id} className='bg-white p-4 rounded-md shadow-md border border-gray-200 flex flex-col gap-1'>
-                    <a href={repo.html_url} target='_blank' className='hover:underline font-bold text-blue-600 w-max'>{repo.name}</a>
+                    <a href={repo.html_url} target='_blank' className='hover:underline font-bold text-blue-600 w-fit'>{repo.name}</a>
                     <p className='text-gray-700 text-sm'>{repo.description || 'No description'}</p>
                     <div className='flex gap-1 items-center mt-auto'>
                         <p className='bg-gray-100 px-2 py-1 rounded text-sm w-max'>{repo.language || 'Unknown'}</p>
