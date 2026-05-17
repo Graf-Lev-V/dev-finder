@@ -47,6 +47,7 @@ export default function Users() {
             <h2 className="text-lg font-bold mb-4">Results for: {query}</h2>
             {loading && <Loader/>}
             {error && <p>{error.message}</p>}
+            {!loading && users.length === 0 && <p>No users found</p>}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {users.map((user) => <UserCard key={user.id} login={user.login} avatar={user.avatar_url}/>)}
             </div>
