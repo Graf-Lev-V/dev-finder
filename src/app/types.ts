@@ -1,5 +1,10 @@
 export type User = {
-    login: string;
-    avatar_url: string;
-    id: number;
+    avatar_url: string,
+    login: string,
+    bio: string | null,
+    followers: string,
+    following: string,
+    public_repos: string,
+    location: string | null,
+    id: number
 }

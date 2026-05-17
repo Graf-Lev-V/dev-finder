@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { User } from '../types';
 import { useEffect, useState } from "react";
 import UserCard from "../components/UserCard";
+import Loader from "./Loader";
 
 export default function Users() {
 
@@ -43,8 +44,8 @@ export default function Users() {
 
     return (
         <div className="p-6">
-            <h2 className="text-lg font-bold mb-4">Results for: &quot;{query}&quot;</h2>
-            {loading && <p>Loading...</p>}
+            <h2 className="text-lg font-bold mb-4">Results for: {query}</h2>
+            {loading && <Loader/>}
             {error && <p>{error.message}</p>}
             <div className="grid grid-cols-3 gap-4">
                 {users.map((user) => <UserCard key={user.id} login={user.login} avatar={user.avatar_url}/>)}

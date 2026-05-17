@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
+import Loader from './Loader';
 
 type Repo = {
-    id: number;
-    name: string;
-    description: string;
-    stargazers_count: number;
-    language: string;
-    html_url: string;
+    id: number,
+    name: string,
+    description: string | null,
+    stargazers_count: number,
+    language: string | null,
+    html_url: string
 }
 
 export default function RepoList({login}: {login: string}) {
@@ -42,10 +43,10 @@ export default function RepoList({login}: {login: string}) {
     }, [login])
 
     return (
-        <div className='px-6'>
+        <div className='p-6'>
             <h3 className='text-bold text-xl my-4'>Repositories</h3>
             <div className='grid grid-cols-2 gap-4'>
-                {loading && <p>Loading...</p>}
+                {loading && <Loader/>}
                 {error && <p>{error.message}</p>}
                 {repos.map((repo) => 
                 <div key={repo.id} className='bg-white p-4 rounded-md shadow-md border border-gray-200 flex flex-col gap-1'>

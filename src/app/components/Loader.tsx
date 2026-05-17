@@ -1,7 +1,5 @@
-export default function Loader() {
+export default function Loader({className}: {className?: string}) {
     return (
-        <div>
-            
-        </div>
+        <p className={className}>Loading...</p>
     )
 }

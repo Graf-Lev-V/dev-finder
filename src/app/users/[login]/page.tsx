@@ -4,19 +4,11 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from 'next/image';
 import RepoList from "@/app/components/RepoList";
-
-type User = {
-    avatar_url: string;
-    login: string;
-    bio: string;
-    followers: string;
-    following: string;
-    public_repos: string;
-    location: string;
-}
+import Loader from "@/app/components/Loader";
+import type { User } from '@/app/types';
+import UserStats from "@/app/components/UserStats";
 
 export default function User() {
-
     const { login } = useParams<{login: string}>();
 
     const [user, setUser] = useState<User | null>(null);
@@ -47,46 +39,47 @@ export default function User() {
             }
         }
         )();
-
         return () => controller.abort();
-    }, [login])
+    }, [login]);
 
     const router = useRouter();
 
     return (
         <>
-        <div className="max-w-md mx-auto p-8 bg-gray-100 rounded-xl shadow-md mt-8">
-            {loading && <p className="text-center">Loading...</p>}
-            {error && <p className="text-center">{error.message}</p>}
-            {user?.avatar_url && 
-            <Image 
-                src={user.avatar_url} 
-                alt={`${login} avatar`} 
-                width={128} 
-                height={128}
-                className="rounded-full mx-auto"
-            />}
-            <p className="text-lg font-bold text-center mt-2">{user?.login}</p>
-            <p className="text-gray-700 text-center mb-4 mt-1">{user?.bio}</p>
-            <div className="flex gap-4 justify-center text-gray-700">
-                <p>Followers: <span className="font-bold text-black">{user?.followers}</span></p>
-                <p>Following: <span className="font-bold text-black">{user?.following}</span></p>
-                <p>Repositories: <span className="font-bold text-black">{user?.public_repos}</span></p>
+            <div className="max-w-md mx-auto p-8 bg-gray-100 rounded-xl shadow-md mt-8">
+                {loading && <Loader className="text-center"/>}
+                {error && <p className="text-center">{error.message}</p>}
+                {user?.avatar_url &&
+                <Image
+                    src={user.avatar_url}
+                    alt={`${login} avatar`}
+                    width={128}
+                    height={128}
+                    className="rounded-full mx-auto"
+                />}
+                <p className="text-lg font-bold text-center mt-2">{user?.login}</p>
+                <p className="text-gray-700 text-center mb-4 mt-1">{user?.bio}</p>
+                <UserStats className={{
+                    container: "flex gap-4 justify-center text-gray-700",
+                    followers: "font-bold text-black",
+                    following: "font-bold text-black",
+                    repositiries: "font-bold text-black"
+                }} 
+                user={user}/>
+                <p className="text-gray-700 text-center">{user?.location}</p>
+                <div className="flex gap-4 mt-4 justify-center">
+                    <a
+                        href={`https://github.com/${login}`}
+                        target="_blank"
+                        className="bg-blue-600 text-white p-4 hover:bg-blue-800 rounded-lg hover:cursor-pointer"
+                    >Github profile</a>
+                    <button
+                        onClick={() => router.back()}
+                        className="bg-gray-600 text-white p-4 hover:bg-gray-800 rounded-lg hover:cursor-pointer"
+                    >Back</button>
+                </div>
             </div>
-            <p className="text-gray-700 text-center">{user?.location}</p>
-            <div className="flex gap-4 mt-4 justify-center">
-                <a 
-                    href={`https://github.com/${login}`}
-                    target="_blank"
-                    className="bg-blue-600 text-white p-4 hover:bg-blue-800 rounded-lg hover:cursor-pointer"
-                >Github profile</a>
-                <button 
-                    onClick={() => router.back()}
-                    className="bg-gray-600 text-white p-4 hover:bg-gray-800 rounded-lg hover:cursor-pointer"
-                >Back</button>
-            </div>
-        </div>
-        <RepoList login={login}/>
+            <RepoList login={login}/>
         </>
     )
 }
